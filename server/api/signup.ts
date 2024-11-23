@@ -5,12 +5,26 @@ export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event);
     const { username, email, password } = body;
+    // Validation
+    if (username.length < 5) {
+      throw createError({
+        statusCode: 400,
+        message: 'Username must be at least 5 characters long'
+      });
+    }
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      throw createError({
+        statusCode: 401,
+        message: 'Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character'
+      });
+    }
 
     // Check if the email already exists
-    const [rows] = await pool.execute('SELECT email FROM users WHERE email = ?', [email]); 
+    const [rows] = await pool.execute('SELECT email FROM users WHERE email = ?', [email]);
 
     if (Array.isArray(rows) && rows.length > 0) {
-      throw createError({ statusCode: 409, message: 'Email is already taken' }); 
+      throw createError({ statusCode: 409, message: 'Email is already taken' });
     }
 
     // Hash the password

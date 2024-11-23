@@ -25,24 +25,38 @@
             />
           </div>
           <div class="mb-2">
-            <input 
-              type="password" 
-              id="password" 
-              v-model="password" 
-              class="p-2 mt-1 block w-full border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" 
-              placeholder="Password" 
-              required 
+            <input
+              :type="showPassword ? 'text' : 'password'"
+              id="password"
+              v-model="password"
+              class="p-2 mt-1 block w-full border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300"
+              placeholder="Password"
+              required
             />
+            <button
+              type="button"
+              class="absolute right-2 top-2 text-gray-500 dark:text-gray-300"
+              @click="togglePasswordVisibility('password')"
+            >
+              {{ showPassword ? 'Hide' : 'Show' }}
+            </button>
           </div>
           <div class="mb-2">
-            <input 
-              type="password" 
-              id="confirmPassword" 
-              v-model="confirmPassword" 
-              class="p-2 mt-1 block w-full border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" 
-              placeholder="Confirm Password" 
-              required 
+            <input
+              :type="showConfirmPassword ? 'text' : 'password'"
+              id="confirmPassword"
+              v-model="confirmPassword"
+              class="p-2 mt-1 block w-full border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300"
+              placeholder="Confirm Password"
+              required
             />
+            <button
+              type="button"
+              class="absolute right-2 top-2 text-gray-500 dark:text-gray-300"
+              @click="togglePasswordVisibility('confirmPassword')"
+            >
+              {{ showConfirmPassword ? 'Hide' : 'Show' }}
+            </button>
             <p v-if="!passwordsMatch && confirmPassword" class="mt-1 text-sm text-red-600">
               Passwords do not match
             </p>
@@ -87,6 +101,16 @@ const username = ref('');
 const email = ref('');
 const password = ref('');
 const confirmPassword = ref('');
+const showPassword = ref(false);
+const showConfirmPassword = ref(false);
+
+const togglePasswordVisibility = (field: string) => {
+  if (field === "password") {
+    showPassword.value = !showPassword.value;
+  } else if (field === "confirmPassword") {
+    showConfirmPassword.value = !showConfirmPassword.value;
+  }
+};
 
 const passwordsMatch = computed(() => {
   return password.value === confirmPassword.value;
@@ -122,7 +146,14 @@ const handleSubmit = async () => {
       success.value = false;
       if (error.statusCode === 409) {
         message.value = 'Email is already taken.'
-      } else {
+      } 
+      else if (error.statusCode === 400) {
+        message.value = 'Username must be at least 5 characters long'
+      }
+      else if (error.statusCode === 401) {
+        message.value = 'Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character'
+      }
+      else {
         message.value = 'An error occurred. Please try again later.';
       }
     }
