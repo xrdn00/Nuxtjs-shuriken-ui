@@ -120,7 +120,11 @@ const handleSubmit = async () => {
       confirmPassword.value = '';
     } catch (error: any) {
       success.value = false;
-      message.value = error.message || 'An error occurred while adding the user';
+      if (error.statusCode === 409) {
+        message.value = 'Email is already taken.'
+      } else {
+        message.value = 'An error occurred. Please try again later.';
+      }
     }
   }
 };
