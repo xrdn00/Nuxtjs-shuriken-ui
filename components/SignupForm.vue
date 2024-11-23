@@ -5,26 +5,26 @@
         <h2 class="text-md font-bold mb-6 text-center text-gray-900 dark:text-gray-100">Sign Up</h2>
         <form @submit.prevent="handleSubmit">
           <div class="mb-2">
-            <input 
-              type="text" 
-              id="username" 
-              v-model="username" 
-              class="p-2 mt-1 block w-full border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" 
-              placeholder="Username" 
-              required 
+            <input
+              type="text"
+              id="username"
+              v-model="username"
+              class="p-2 mt-1 block w-full border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300"
+              placeholder="Username"
+              required
             />
           </div>
           <div class="mb-2">
-            <input 
-              type="email" 
-              id="email" 
-              v-model="email" 
-              class="p-2 mt-1 block w-full border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" 
-              placeholder="Email" 
-              required 
+            <input
+              type="email"
+              id="email"
+              v-model="email"
+              class="p-2 mt-1 block w-full border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300"
+              placeholder="Email"
+              required
             />
           </div>
-          <div class="mb-2">
+          <div class="mb-2 relative">
             <input
               :type="showPassword ? 'text' : 'password'"
               id="password"
@@ -35,13 +35,13 @@
             />
             <button
               type="button"
-              class="absolute right-2 top-2 text-gray-500 dark:text-gray-300"
+              class="bg-white opacity-100 absolute right-2 top-2 text-gray-500 dark:text-gray-300 dark:bg-gray-700"
               @click="togglePasswordVisibility('password')"
             >
-              {{ showPassword ? 'Hide' : 'Show' }}
+            {{ showPassword ? 'Hide' : 'Show' }}
             </button>
           </div>
-          <div class="mb-2">
+          <div class="mb-2 relative">
             <input
               :type="showConfirmPassword ? 'text' : 'password'"
               id="confirmPassword"
@@ -52,10 +52,10 @@
             />
             <button
               type="button"
-              class="absolute right-2 top-2 text-gray-500 dark:text-gray-300"
+              class="bg-white opacity-100 absolute right-2 top-2 text-gray-500 dark:text-gray-300 dark:bg-gray-700"
               @click="togglePasswordVisibility('confirmPassword')"
             >
-              {{ showConfirmPassword ? 'Hide' : 'Show' }}
+            {{ showConfirmPassword ? 'Hide' : 'Show' }}
             </button>
             <p v-if="!passwordsMatch && confirmPassword" class="mt-1 text-sm text-red-600">
               Passwords do not match
@@ -64,8 +64,8 @@
               {{ message }}
             </div>
           </div>
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             :disabled="!isFormValid"
             class="mt-2 mb-2 w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-400 disabled:opacity-50 disabled:cursor-not-allowed"
           >
