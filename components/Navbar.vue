@@ -1,8 +1,13 @@
 <template>
-  <nav class="bg-gray dark:bg-black-100 sticky top-0 z-20 border-b border-gray-200 dark:border-gray-600">
+  <nav class="bg-gray-900 dark:bg-gray-900 fixed w-full top-0 z-20 border-b border-gray-200 dark:border-gray-600">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <span class="self-center text-2xl font-semibold whitespace-nowrap text-black dark:text-white">
+        <NuxtImg
+          src="/Syscore.png"
+          width="30"
+          sizes="50px, 100px, 200px"
+        />
+        <span class="text-white self-center text-2xl font-semibold whitespace-nowrap text-black dark:text-white w-0">
           SysCore
         </span>
       </a>
@@ -35,34 +40,39 @@
         </button>
       </div>
       <div
-        class="items-center justify-between w-full md:flex md:w-auto md:order-1"
+        class="h-screen items-center justify-between w-full md:flex md:w-auto md:order-1 md:h-auto"
         id="navbar-sticky"
         :class="{ hidden: !isMenuOpen }"
       >
         <ul
-          class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-black-50 dark:bg-black-100 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-gray dark:bg-black-800"
+          class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-green-900 rounded-lg bg-black-50 dark:bg-black-100 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-gray dark:bg-black-800"
         >
           <li>
             <NuxtLink
-              to="/"
-              class="block py-2 px-3 text-black-100 dark:text-white bg-black-700 dark:bg-transparent rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-700"
-              aria-current="page"
+            to="/"
+            :class="[
+              'block py-2 px-3 text-white dark:text-white bg-black-700 dark:bg-transparent rounded md:bg-transparent md:p-0 md:hover:text-green-700 md:dark:hover:text-green-700',
+              { active: $route.path === '/' }
+            ]"
             >
-              Home
+            Home
             </NuxtLink>
           </li>
           <li>
             <NuxtLink
-              to="/signup"
-              class="block py-2 px-3 text-black-100 dark:text-white rounded hover:bg-black-100 dark:hover:bg-black-700 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500"
+            to="/signup"
+            :class="[
+              'block py-2 px-3 text-white dark:text-white bg-black-700 dark:bg-transparent rounded md:bg-transparent md:p-0 md:hover:text-green-700 md:dark:hover:text-green-700',
+              { active: $route.path === '/signup' }
+            ]"
             >
-              Sign up
+            Sign up
             </NuxtLink>
           </li>
           <li>
             <a
               href="#"
-              class="block py-2 px-3 text-black-100 dark:text-white rounded hover:bg-black-100 dark:hover:bg-black-700 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500"
+              class="block py-2 px-3 text-white dark:text-white bg-black-700 dark:bg-transparent rounded md:bg-transparent md:p-0 md:hover:text-green-700 md:dark:hover:text-green-700"
             >
               Login
             </a>
@@ -70,7 +80,7 @@
           <li>
             <a
               href="#"
-              class="block py-2 px-3 text-black-100 dark:text-white rounded hover:bg-black-100 dark:hover:bg-black-700 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500"
+              class="block py-2 px-3 text-white dark:text-white bg-black-700 dark:bg-transparent rounded md:bg-transparent md:p-0 md:hover:text-green-700 md:dark:hover:text-green-700"
             >
               About
             </a>
@@ -95,4 +105,10 @@ export default {
   },
 };
 </script>
+
+<style>
+.active {
+  color: green;
+}
+</style>
 
